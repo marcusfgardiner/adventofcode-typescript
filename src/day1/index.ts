@@ -7,7 +7,22 @@ class Day1 extends Day {
     }
 
     solveForPartOne(input: string): string {
-        return input;
+        let arrayOfLines: string[] = input.trim().split('\n');
+        let column1: number[] = [];
+        let column2: number[] = [];
+        arrayOfLines.forEach(line => {
+            let [column1number, column2number] = line.split(/\s+/).map(Number);
+            column1.push(column1number);
+            column2.push(column2number);
+        })
+
+        let sortedColumn1 = column1.sort((a, b) => a - b);
+        let sortedColumn2 = column2.sort((a, b) => a - b);
+
+        const difference = sortedColumn1.reduce((accumulator, currentValue, index) => {
+            return accumulator + Math.abs(currentValue - sortedColumn2[index])
+        }, 0)
+        return difference.toString()
     }
 
     solveForPartTwo(input: string): string {
